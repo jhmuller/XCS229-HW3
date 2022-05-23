@@ -13,8 +13,10 @@ def initial_state():
     Please return list to contain the state of the perceptron.
     """
     # *** START CODE HERE ***
+    state = {'betas': [],
+             'xs' : []}
+    return state
     # *** END CODE HERE ***
-    pass
 
 
 def predict(state, kernel, x_i):
@@ -31,6 +33,13 @@ def predict(state, kernel, x_i):
         Returns the prediction (i.e 0 or 1)
     """
     # *** START CODE HERE ***
+    betas = state['betas']
+    xs = state['xs'] 
+    ksum = 0
+    x_new = x_i
+    for i in range(len(betas)):
+        ksum += betas[i] * kernel(xs[i], x_new)
+    return sign(ksum)
     # *** END CODE HERE ***
     pass
 
@@ -46,8 +55,20 @@ def update_state(state, kernel, learning_rate, x_i, y_i):
         y_i: A 0 or 1 indicating the label for a single instance
     """
     # *** START CODE HERE ***
+    new_x = x_i
+    new_y = y_i
+    betas = state['betas'] + [0]
+    xs = state['xs'] + [new_x]
+    N = len(betas)
+    for i in range(N):
+        ksum = 0
+        for j in range(len(betas)):
+            kterm = kernel(xs[j], new_x)
+            ksum += betas[j] * kterm
+        betas[i] += learning_rate * (new_y - kterm)
+    state['betas'] = betas
+    state['xs'] =  xs
     # *** END CODE HERE ***
-    pass
 
 
 def sign(a):

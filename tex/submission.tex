@@ -31,6 +31,14 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_1a
 \begin{answer}
   % ### START CODE HERE ###
+  \begin{align*}
+  p(y;\lambda) 
+  &= \frac{exp(-\lambda) \lambda^y}{y!}\\
+  &= b(y)      exp(-\lambda) \lambda^y \text{   where $b(y) = \frac{1}{y!}$}\\    
+  &= b(y)      exp(-\lambda + log(\lambda)y) \text{}\\      
+  &= b(y)      exp( \eta y  - exp(\eta)) \text{   where $\eta = log(\lambda)$}\\   
+  & b(y) exp(\eta^t y - \alpha(\eta))  \text{  where   $\alpha(\eta)=exp(\eta)$}\\
+  \end{align*}
   % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_1a
@@ -88,6 +96,18 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_2a
   \begin{answer}
   % ### START CODE HERE ###
+  We will show that $K = K_1 + K_2$ is symmetric and PSD.
+  
+  First symmetric.  This will follow since $K_1$ and $K_2$ are symmetric.\\
+  Denote the $(i,j)$ entry of $K$, as $K^{(i,j)}$. Then
+  \begin{align*}
+  K^{(i,j)} &= K_1^{(i,j)} + K_2^{(i,j)} \\
+            &= K_1^{(j,i)} + K_2^{(j,i)} \text{  since $K_1$ and $K_2$ are symmetric}\\
+            &= K^{(j,i)}
+    \end{align*}
+    Now for PSD. Since $K_1$ and $K_2$ are PSD then \\
+    $\forall v$ we know $ v^TK_1v \ge 0$ and $v^TK_2v \ge 0$ \\
+    Therefore $v^T K v = v^T(K_1 + K_2)v = v^TK_1v + v^T K_2 v \ge 0$
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_2a
@@ -100,6 +120,10 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_2b
   \begin{answer}
   % ### START CODE HERE ###
+  Let $K_2 = -2K_1$ for some $K_1 \ne 0$. \\
+  Then for some $v$ where $v^T K_1 v = c > 0$ \\
+  $v^T K v = v^T(K_1 + K_2)v = v^TK_1v -2 v^T K_1 v = c - 2c = -c < 0$\\
+  So $K = K_1 - K_2$ is not a kernel.
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_2b
@@ -112,6 +136,20 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_2c
   \begin{answer}
   % ### START CODE HERE ###
+  We will show that $K = a K_1$ is symmetric and PSD \\
+  given that $K_1$ is symmetric and PSD and $a \in \mathbb{R}^+$ i.e. $a >0$.
+  
+  First symmetric.  This will follow since $K_1$ is symmetric.\\
+  Denote the $(i,j)$ entry of $K$, as $K^{(i,j)}$. Then
+  \begin{align*}
+  K^{(i,j)} &= a K_1^{(i,j)}  \\
+            &= a K_1^{(j,i)}  \text{  since $K_1$ is symmetric}\\
+            &= a K^{(j,i)}
+    \end{align*}
+    Now for PSD. Since $K_1$ is PSD then \\
+    $\forall v$ we know $ v^TK_1v \ge 0$ \\
+    Therefore $v^T K v = v^T(a K_1)v = a v^TK_1v = a c$ where $a>0$ and $c>= 0$ so $ac \ge 0$
+ 
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_2c
@@ -124,6 +162,11 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_2d
   \begin{answer}
   % ### START CODE HERE ###
+  Choose $K_1 \ne 0$ and for some $v$ where $v^T K_1v > 0$
+  then \\
+  $v^T K v = v^T (-a K_1) v = -a (v^T K_1 v) =  -a c < 0$
+
+  So $K = -a  K_1$ is not a kernel.
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_2d
@@ -136,6 +179,12 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3ai
   \begin{answer}
   % ### START CODE HERE ###
+  Represent $\theta$ as a linear combination of data points we have seen so far,\\ as in 
+  \begin{align*}
+  \theta &= \sum_{i=1}^{m}{\beta_i \phi(x^{(i)})}
+\end{align*}   
+  Thus we only need the $m$ $\beta$ values
+ %$\theta^{(i)}$ as the $n$ $\beta$ values, $\beta_i$ for $i=1,\ldots ,n$
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_3ai
@@ -147,6 +196,12 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3aii
   \begin{answer}
   % ### START CODE HERE ###
+  \begin{align*}
+  h_{\theta^{(i)}}(x^{(i+1)}) &= g(\theta^{(i)^T} \phi(x^{(i+1)}))\\
+               &=  g( \sum_{i=1}^{n} \beta_i \phi(x^{(i)}) \phi(x^{(i+1)}))\\
+              &=  g( \sum_{i=1}^{n} \beta_i K(x^{(i)}, x))\\
+  \end{align*}
+    Where $K$ is the kernel function.  
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_3aii
@@ -158,6 +213,12 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3aiii
   \begin{answer}
   % ### START CODE HERE ###
+  Since we are representing $\theta$ via the $\beta$ values we need a rule to update 
+  the $\beta$ values.
+  \begin{align*}
+  \beta_j^{(i+1)} :&= \beta_j^{(i)} + \alpha(y^{(i+1)} - g( \sum_{i=1}^{n} \beta_i^{(i)} K(x^{(i)}, x^{(i+1)}))\\
+  \end{align*}
+
   % ### END CODE HERE ###
   \end{answer}
 % <SCPD_SUBMISSION_TAG>_3aiii
